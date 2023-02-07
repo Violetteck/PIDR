@@ -1,0 +1,51 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/pidrtest.sol": "PIDRTest"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/pidrtest.sol": {
+			"keccak256": "0x426af8c7a60c38fa030186f287d1b4209011dc291cfd6367186909b61f839102",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://6271ae25f25414e8ce802116eb052f8a25ad1a87648650f40e23e85723adc983",
+				"dweb:/ipfs/QmfRoXMf9TJYgw54KH6BbEESLgLjDB2abH77TXcm6PR89e"
+			]
+		}
+	},
+	"version": 1
+}
