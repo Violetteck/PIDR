@@ -23,7 +23,7 @@ contract PIDRHelper is PIDRTest {
         require(msg.value == salePrice);
 
         payable(artwork.owner).transfer(msg.value);
-        _changeOwner(msg.sender);
+        _transfer(msg.sender);
         onSale = false;
     }
 
@@ -50,5 +50,13 @@ contract PIDRHelper is PIDRTest {
 
     function getBuyer() external view returns(address) {
         return buyer;
+    }
+
+    function ownerOf(uint tokenId) public view minted(tokenId) returns(address) {
+        return artworkToOwner[tokenId];
+    }
+
+    function getArtworkHistory(uint tokenId) public view minted(tokenId) returns(string) {
+        return artworkToUri[tokenId];
     }
 }

@@ -5,21 +5,46 @@ contract PIDRTest {
 
     uint seed = 0;
     uint salePrice = 0.01 ether;
+    bool transforming = false;
+    mapping (uint => address) public artworkToOwner;
+    mapping (uint => string) public artworkToUri;
+
+    event TransformUri();
 
     struct Artwork {
         uint idArtwork;
         address owner;
+        string uri;
     }
 
     Artwork internal artwork;
 
     constructor() {
-        artwork = Artwork(0, msg.sender);
+        artwork = Artwork(0, msg.sender, "");
+        transforming = true;
+        emit TransformUri();
+        transforming = false;
+        _updateMaps();
     }
 
     modifier ownerOnly() {
         require(msg.sender == artwork.owner);
         _;
+    }
+
+    modifier minted(uint tokenId) {
+        require(tokenId <= artwork.idArtwork);
+        _;
+    }
+
+    modifier isTransforming() {
+        require(transforming);
+        _;
+    }
+
+    function _updateMaps() private {
+        artworkToOwner[artwork.idArtwork] = artwork.owner;
+        artworkToUri[artwork.idArtwork] = artwork.uri;
     }
 
     function _generateRandom() private returns (uint) {
@@ -32,8 +57,17 @@ contract PIDRTest {
         artwork.idArtwork = _generateRandom();
     }
 
-    function _changeOwner(address _newOwner) internal {
-        artwork.owner = _newOwner;
-        _changeID();
+    function _transfer(address _to) internal {
+        artwork.owner = _to;
+        //_changeID();
+        artwork.idArtwork++;
+        transforming = true;
+        emit TransformUri();
+        transforming = false;
+        _updateMaps();
+    }
+
+    function setArtworkUri(string calldata _uri) public ownerOnly isTransforming {
+        artwork.uri = _uri;
     }
 }
